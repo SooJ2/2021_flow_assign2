@@ -13,35 +13,79 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:background="@color/white"
-            android:orientation="horizontal">
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:paddingTop="5dp">
+
+            <TextView
+                android:id="@+id/calendarPrev"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="이전"
+                android:textSize="15sp"
+                android:layout_gravity="center"
+                android:textColor="#4A777F"/>
+            <TextView
+                android:id="@+id/calendarYear"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Year"
+                android:layout_marginLeft="10dp"
+                android:textSize="30sp"
+                android:layout_gravity="center"
+                android:textColor="#4A777F" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="년"
+                android:layout_marginLeft="10dp"
+                android:textSize="30sp"
+                android:layout_gravity="center"
+                android:textColor="#2C5458" />
 
             <TextView
                 android:id="@+id/calendarMonth"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="month"
+                android:text="Month"
                 android:layout_marginLeft="10dp"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:layout_gravity="center"
+                android:textColor="#8CAAA6" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_height="50dp"
                 android:text="월"
-               android:textSize="30sp"/>
+                android:layout_marginLeft="10dp"
+                android:textSize="30sp"
+                android:layout_gravity="center"
+                android:textColor="#2C5458" />
+            <TextView
+                android:id="@+id/calendarNext"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+               android:text="다음"
+                android:layout_marginLeft="10dp"
+                android:textSize="15sp"
+                android:layout_gravity="center"
+                android:gravity="right"
+                android:textColor="#4A777F"/>
+
 
         </LinearLayout>
 
 
+
         <LinearLayout
             android:id="@+id/calendarLinearLayout"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:background="#A3BE9A"
+            android:background="#8CAAA6"
             android:orientation="horizontal">
 
             <TextView
