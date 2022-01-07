@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.item_calendar.view.*
 
 class CalendarGridViewAdapter(private var context: Context, dateList: ArrayList<String>): BaseAdapter() {
 
-    val dates = dateList
+    var dates = dateList
 
     override fun getCount(): Int {
         return dates.size
@@ -25,10 +25,20 @@ class CalendarGridViewAdapter(private var context: Context, dateList: ArrayList<
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val date = dates[position]
-        println("#@#@#@#@#@#@#@#@#@#@#@#$date")
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val calendarView:View = inflater.inflate(R.layout.item_calendar,null)
         calendarView.calendarDayTextView.text = date
         return calendarView
+    }
+
+    override fun notifyDataSetChanged() {
+        println("notify data changed")
+        super.notifyDataSetChanged()
+    }
+
+    fun update(dateList: ArrayList<String>){
+        println("in update stmt @@")
+        dates = dateList
+        notifyDataSetChanged()
     }
 }
