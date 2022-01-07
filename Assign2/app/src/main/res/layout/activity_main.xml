@@ -18,17 +18,17 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Contacts" />
+            android:text="Calendar" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gallery" />
+            android:text="Feed" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="To-DO" />
+            android:text="Community" />
     </com.google.android.material.tabs.TabLayout>
 
     <FrameLayout
