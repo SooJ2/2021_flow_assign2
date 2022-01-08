@@ -7,11 +7,12 @@
         <entry key="app/src/main/res/layout/calendar_item.xml" value="0.20052083333333334" />
         <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.2706007828870956" />
         <entry key="app/src/main/res/layout/fragment_community.xml" value="0.3052536231884058" />
-        <entry key="app/src/main/res/layout/fragment_my_feed.xml" value="0.16875" />
+        <entry key="app/src/main/res/layout/fragment_my_feed.xml" value="0.2749474471030593" />
         <entry key="app/src/main/res/layout/item_calendar.xml" value="0.335" />
         <entry key="app/src/main/res/layout/item_calendar_header.xml" value="0.3115942028985507" />
         <entry key="app/src/main/res/layout/item_day.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_day_empty.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/oneday_feeds.xml" value="0.32380995207122915" />
       </map>
     </option>
   </component>
