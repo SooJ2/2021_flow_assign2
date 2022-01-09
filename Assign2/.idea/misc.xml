@@ -3,15 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17477203647416414" />
         <entry key="app/src/main/res/layout/calendar_item.xml" value="0.20052083333333334" />
         <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.2706007828870956" />
         <entry key="app/src/main/res/layout/fragment_community.xml" value="0.3052536231884058" />
+        <entry key="app/src/main/res/layout/fragment_feed_add.xml" value="0.3120471014492754" />
         <entry key="app/src/main/res/layout/fragment_my_feed.xml" value="0.2749474471030593" />
+        <entry key="app/src/main/res/layout/fragment_my_feed_detail.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_my_feed_more_detail.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/layout/fragment_my_feed_more_detail_comment.xml" value="0.3421875" />
         <entry key="app/src/main/res/layout/item_calendar.xml" value="0.335" />
         <entry key="app/src/main/res/layout/item_calendar_header.xml" value="0.3115942028985507" />
         <entry key="app/src/main/res/layout/item_day.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_day_empty.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/my_feed_more_detail_comment.xml" value="0.3120471014492754" />
+        <entry key="app/src/main/res/layout/onday_feeds_images.xml" value="0.358695652173913" />
         <entry key="app/src/main/res/layout/oneday_feeds.xml" value="0.32380995207122915" />
       </map>
     </option>

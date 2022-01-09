@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.assign2.databinding.FragmentMyFeedBinding
@@ -16,36 +17,73 @@ class MyFeed : Fragment() {
     private lateinit var binding: FragmentMyFeedBinding
     private lateinit var adapter: MyFeedAdapter
     var userId by Delegates.notNull<Int>()
+    var datas = ArrayList<ArrayList<String>>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        userId = 1
+
+        /*tmp dummy datas*/
+        val innerUrl1= ArrayList<String>()
+        val innerUrl2= ArrayList<String>()
+        val innerUrl3= ArrayList<String>()
+        val innerUrl4= ArrayList<String>()
+        val outerUrl = ArrayList<ArrayList<String>>()
+        innerUrl1.add("https://user-images.githubusercontent.com/64190044/148642694-df63295e-9e26-456f-b2dd-59ecc3f92aca.png")
+        innerUrl1.add("https://user-images.githubusercontent.com/64190044/148642701-1848582d-ecf1-426d-ba9c-6272c93a671d.png")
+        innerUrl1.add("https://user-images.githubusercontent.com/64190044/148642706-7fb9f9fa-058b-4543-ad3a-8b29ea277089.png")
+        innerUrl1.add("https://user-images.githubusercontent.com/64190044/148642708-5a4e707a-8f93-4b9e-9436-ef5b98153e1d.png")
+
+        innerUrl2.add("https://user-images.githubusercontent.com/64190044/148642706-7fb9f9fa-058b-4543-ad3a-8b29ea277089.png")
+        innerUrl2.add("https://user-images.githubusercontent.com/64190044/148642708-5a4e707a-8f93-4b9e-9436-ef5b98153e1d.png")
+        innerUrl2.add("https://user-images.githubusercontent.com/64190044/148642694-df63295e-9e26-456f-b2dd-59ecc3f92aca.png")
+        innerUrl2.add("https://user-images.githubusercontent.com/64190044/148642701-1848582d-ecf1-426d-ba9c-6272c93a671d.png")
+
+        innerUrl3.add("https://user-images.githubusercontent.com/64190044/148642694-df63295e-9e26-456f-b2dd-59ecc3f92aca.png")
+        innerUrl3.add("https://user-images.githubusercontent.com/64190044/148642701-1848582d-ecf1-426d-ba9c-6272c93a671d.png")
+        innerUrl3.add("https://user-images.githubusercontent.com/64190044/148642706-7fb9f9fa-058b-4543-ad3a-8b29ea277089.png")
+        innerUrl3.add("https://user-images.githubusercontent.com/64190044/148642708-5a4e707a-8f93-4b9e-9436-ef5b98153e1d.png")
+
+        innerUrl4.add("https://user-images.githubusercontent.com/64190044/148642706-7fb9f9fa-058b-4543-ad3a-8b29ea277089.png")
+        innerUrl4.add("https://user-images.githubusercontent.com/64190044/148642708-5a4e707a-8f93-4b9e-9436-ef5b98153e1d.png")
+        innerUrl4.add("https://user-images.githubusercontent.com/64190044/148642694-df63295e-9e26-456f-b2dd-59ecc3f92aca.png")
+        innerUrl4.add("https://user-images.githubusercontent.com/64190044/148642701-1848582d-ecf1-426d-ba9c-6272c93a671d.png")
+
+
+        outerUrl.add(innerUrl1)
+        outerUrl.add(innerUrl2)
+        outerUrl.add(innerUrl3)
+        outerUrl.add(innerUrl4)
+
+        datas = outerUrl
+
+        /*end tmp dummy datas*/
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
 //        fragmentView = LayoutInflater.from(activity).inflate(R.layout.fragment_my_feed, container, false)
 //        return fragmentView
-        adapter = MyFeedAdapter(requireContext(),userId)
+        adapter = MyFeedAdapter(requireContext(),userId,datas)
         binding = FragmentMyFeedBinding.inflate(layoutInflater)
         binding.feedsRecyclerview.adapter = adapter
         binding.feedsRecyclerview.layoutManager = LinearLayoutManager(activity)
 
+        binding.adddietbtn.setOnClickListener {
+
+            val transaction = (context as AppCompatActivity).supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.frameLayout, FeedAdd())
+            transaction.addToBackStack("detail")
+            transaction.commit()
+        }
+
         return binding.root
     }
-    inner class MyFeedFragmentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            TODO("Not yet implemented")
-        }
-
-        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            TODO("Not yet implemented")
-        }
-
-        override fun getItemCount(): Int {
-            TODO("Not yet implemented")
-        }
-
+    override fun onDestroyView() {
+        binding = FragmentMyFeedBinding.inflate(layoutInflater)
+        super.onDestroyView()
     }
+
 
 }

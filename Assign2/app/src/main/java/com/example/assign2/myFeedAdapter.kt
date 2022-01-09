@@ -10,35 +10,35 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlin.properties.Delegates
+import com.example.assign2.databinding.FragmentMyFeedBinding
+import com.example.assign2.databinding.OnedayFeedsBinding
 
-class MyFeedAdapter(val context: Context,userId: Int): RecyclerView.Adapter<MyFeedAdapter.myFeedViewHolder>() {
-    var datas = mutableListOf<OneDayData>()
+class MyFeedAdapter(val context: Context, userId: Int, data: ArrayList<ArrayList<String>>): RecyclerView.Adapter<MyFeedAdapter.myFeedViewHolder>() {
+    var datas = data
+    val userId = userId
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyFeedAdapter.myFeedViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.oneday_feeds, parent, false)
-        return myFeedViewHolder(view)
-    }
+    inner class myFeedViewHolder(private val binding: OnedayFeedsBinding ) : RecyclerView.ViewHolder(binding.root) {
 
-    override fun onBindViewHolder(holder: MyFeedAdapter.Holder, position: Int) {
-        holder.bind(datas[position])
-    }
-
-    override fun getItemCount(): Int = datas.size
-
-    inner class myFeedViewHolder(private val binding: ) : RecyclerView.ViewHolder(view) {
-        private val txtDate: TextView = itemView.findViewById(R.id.eatdate)
-//        private val photos: List<ImageView> = itemView.findViewById(R.id.inner_recyclerview)
-        fun bind(item:OneDayData) {
-//            txtDate.text = item.Date
-//            for (i in 0 .. photos.lastIndex) {
-//                Glide.with(itemView).load(item.photos[i]).into(photos[i])
-//            }
-
+        fun bind(item:ArrayList<String>) {
+            val adapter = MyFeedInnerAdapter(context, userId, item)
+            binding.innerRecyclerview.adapter = adapter
+//            val manager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+            binding.innerRecyclerview.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+            binding.myFeedDate.text = "2022.01.08"
         }
     }
 
 
     override fun onBindViewHolder(holder: myFeedViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.bind(datas[position])
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): myFeedViewHolder {
+        val bindingInner = OnedayFeedsBinding.inflate(LayoutInflater.from(context))
+        return myFeedViewHolder(bindingInner)
+    }
+
+    override fun getItemCount(): Int {
+        return datas.count()
     }
 }
