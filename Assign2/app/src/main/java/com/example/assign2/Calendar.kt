@@ -35,6 +35,8 @@ class Calendar : Fragment() {
         calMonth = today.get(2)
         setCalendarList(calYear,calMonth)
         calAdapter = CalendarGridViewAdapter(requireContext(),mCalendar)
+        binding.calendarMonth.text = (calMonth+1).toString()
+        binding.calendarYear.text = calYear.toString()
     }
 
     override fun onCreateView(
@@ -45,8 +47,9 @@ class Calendar : Fragment() {
         val gridView = binding.calendar
         gridView.adapter = calAdapter
 
+
         binding.calendarPrev.setOnClickListener {
-            println("!!PressPrev")
+            println("!!PressPrev/////////")
             i -= 1
             val curCalendar = GregorianCalendar(calYear,calMonth+i,1,0,0,0)
             val tmpCalYear = curCalendar.get(1)
@@ -69,9 +72,6 @@ class Calendar : Fragment() {
             binding.calendarMonth.text = (tmpCalMonth+1).toString()
             binding.calendarYear.text = tmpCalYear.toString()
         }
-
-        binding.calendarMonth.text = (calMonth+1).toString()
-        binding.calendarYear.text = calYear.toString()
 
         return binding.root
     }

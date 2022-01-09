@@ -4,22 +4,25 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyFeed">
+    tools:context=".MyFeed"
+    android:id="@+id/myFeedOuter">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp">
+
         <ImageView
             android:id="@+id/profile_photo"
-            android:layout_alignParentLeft="true"
             android:layout_width="100dp"
-            android:layout_height="100dp"/>
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true" />
+
         <Button
             android:id="@+id/adddietbtn"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
-            android:text="Add Diet"
-            android:layout_toRightOf="@+id/profile_photo"/>
+            android:layout_toRightOf="@+id/profile_photo"
+            android:text="Add Diet" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -86,7 +89,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/feeds_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
 
 
 </LinearLayout>
