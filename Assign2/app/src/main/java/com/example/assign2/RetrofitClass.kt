@@ -23,17 +23,25 @@ object RetrofitClass {
 //    val password: String
 //)
 
+//어떤 형식으로 output 받을지 결정.
+data class Login(
+    var code: String,
+    var msg: String
+)
+
 data class Userinfo(
     @SerializedName("user_id")
-    val user_id: Int,
+    val user_id: String,
     @SerializedName("private")
     val private: Boolean,
     @SerializedName("profile_photo")
-    val profile_photo: Image
+    val profile_photo: Image,
+    @SerializedName("password")
+    val password: String
 )
 {
     override fun toString(): String {
-        return "Userinfo{user_id=$user_id, private=$private, profile_photo=$profile_photo}"
+        return "Userinfo{user_id=$user_id, private=$private, profile_photo=$profile_photo, password=$password}"
     }
 }
 
@@ -53,7 +61,7 @@ data class Feed(
     @SerializedName("uploader")
     val uploader: Int,
     @SerializedName("feed_photo")
-    val feed_photo: Image,
+    val feed_photo: String,
     @SerializedName("likes")
     val likes: Int,
     @SerializedName("upload_time")
