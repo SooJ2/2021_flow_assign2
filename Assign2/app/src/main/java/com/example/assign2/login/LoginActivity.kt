@@ -2,6 +2,7 @@ package com.example.assign2.login
 
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -81,7 +82,9 @@ class LoginActivity : AppCompatActivity() {
                     else if (user != null) {
                         val intent = Intent(this, MainActivity::class.java)
                         intent.putExtra("email", user.kakaoAccount?.email)
-                        startActivity(intent.setFlags(FLAG_ACTIVITY_NEW_TASK))
+                        intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP)
+                        intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
+                        intent.run {this@LoginActivity.startActivity(this)}
                     }
                 }
             }
@@ -98,7 +101,9 @@ class LoginActivity : AppCompatActivity() {
                     else if (user != null) {
                         val intent = Intent(this, MainActivity::class.java)
                         intent.putExtra("email", user.kakaoAccount?.email)
-                        startActivity(intent.setFlags(FLAG_ACTIVITY_NEW_TASK))
+                        intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP)
+                        intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
+                        intent.run {this@LoginActivity.startActivity(this)}
                     }
                 }
             }
