@@ -6,23 +6,28 @@ import retrofit2.http.*
 interface RetrofitInterface {
 
     //인코딩 해주기
+//    @FormUrlEncoded
+//    //보낼 곳
+//    @POST("/app_login/")
+//    fun requestLogin(
+//        //input 정보
+//        @Field("userid") userid:String,
+//        @Field("userpw") userpw:String
+//    ) : Call<User> //output 정의
+
+
     @FormUrlEncoded
-    //보낼 곳
-    @POST("/app_login/")
-    fun requestLogin(
-        //input 정보
-        @Field("userid") userid:String,
-        @Field("userpw") userpw:String
-    ) : Call<User> //output 정의
+    @POST("kakaouser/")
+    fun setNewKakaoUser(
+        @Field("email") email: String?,
+        @Field("profile_photo") profile_photo: String?
+    ) : Call<KakaoUser>
 
+    @GET("kakaouser/")
+    fun requestKakaoUser(
+        @Query("email") email: String?
+    ) : Call<List<KakaoUser>>
 
-
-    @POST("admin/auth/user/add")
-    fun registerUser(
-        @Field("username") username:String,
-        @Field("password") password:String,
-        @Field("password_confirmation") password_confirmation:String
-    )
 //    @POST("userinfo")
 //    fun registerUserInfo(
 //        @Field("user_id") user_id:String,
@@ -45,8 +50,8 @@ interface RetrofitInterface {
     ) : Call<List<Comment>>
 
 
-    @GET("user/{user}")
-    fun getUser( @Path("user") id: String): Call<User>
+//    @GET("user/{user}")
+//    fun getUser( @Path("user") id: String): Call<User>
 
     @GET("follow/{follow}")
     fun getFollow( @Path("follow") id: String): Call<Follow>
