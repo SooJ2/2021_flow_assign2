@@ -41,7 +41,7 @@
                         android:backgroundTint="#4A777F"/>
 
                     <Button
-                        android:id="@+id/FeedAddScanButton"
+                        android:id="@+id/FeedAddSearchButton"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginLeft="5dp"

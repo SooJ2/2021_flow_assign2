@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.assign2.databinding.FragmentFeedAddBinding
 import com.google.zxing.integration.android.IntentIntegrator
 import retrofit2.Call
@@ -39,6 +40,12 @@ class FeedAdd : Fragment() {
             integrator.initiateScan()
         }
         binding.FeedAddFoodRecyclerView.adapter = FeedAddFoodAdapter(requireContext(),userId,foodList)
+
+        binding.FeedAddSearchButton.setOnClickListener {
+            val transaction = (context as AppCompatActivity).supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.frameLayout,FeedAddFoodSearch())
+            transaction.addToBackStack("add")
+            transaction.commit() }
 
 
     }

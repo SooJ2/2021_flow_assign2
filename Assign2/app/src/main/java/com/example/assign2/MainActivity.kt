@@ -1,9 +1,12 @@
 package com.example.assign2
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.assign2.login.LoginActivity
@@ -22,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var myFeed:MyFeed
     lateinit var community:Community
 
-    var user:KakaoUser = KakaoUser("null", "1")
+    var user:KakaoUser = KakaoUser(-1,"null", "1")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                     call.enqueue(object : Callback<KakaoUser> {
                         override fun onResponse(call: Call<KakaoUser>, response: Response<KakaoUser>) {
                             val tempuser: KakaoUser = response.body() as KakaoUser
-                            user = KakaoUser(tempuser.email, tempuser.profile_photo)
+                            user = KakaoUser(tempuser.id, tempuser.email, tempuser.profile_photo)
                             println("!!!!!" + tempuser)
                             if(response.isSuccessful.not()) {
                                 println("404 에러..?")
@@ -73,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 else {
                     val temp = response.body()!![0]
-                    user = KakaoUser(temp.email, temp.profile_photo)
+                    user = KakaoUser(temp.id, temp.email, temp.profile_photo)
                     println("${response.body()!![0]} !!!!!")
                     println("$user @@@@@")
                 }
@@ -81,6 +84,7 @@ class MainActivity : AppCompatActivity() {
             }
             override fun onFailure(call: Call<List<KakaoUser>>, t: Throwable) {
                 Toast.makeText(this@MainActivity,"연결이 실패했습니다. 다시 로그인해주세요.", Toast.LENGTH_SHORT).show()
+                Log.e("ERROR", t.message.toString())
                 val intent = Intent(this@MainActivity, LoginActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -139,6 +143,13 @@ class MainActivity : AppCompatActivity() {
         // retrofit end
 
 
+    }
+
+
+    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
+
+        println("+++++ $user")
+        return super.onCreateView(name, context, attrs)
     }
 
     private fun replaceView(tab: Fragment) {
