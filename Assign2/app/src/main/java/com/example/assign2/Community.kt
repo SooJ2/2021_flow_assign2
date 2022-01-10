@@ -16,9 +16,13 @@ class Community : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     lateinit var binding:FragmentCommunityBinding
+    var communityFeedList: ArrayList<Any> = ArrayList() // 나중에 가져오기
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = FragmentCommunityBinding.inflate(layoutInflater)
+
+        binding.CommunityRecyclerView.adapter = CommunityFeedAdapter(requireContext(),(activity as MainActivity).userId,communityFeedList)
 
 
     }
@@ -29,10 +33,9 @@ class Community : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        val binding = FragmentCommunityBinding.inflate(layoutInflater)
-        val url1 = "https://user-images.githubusercontent.com/64190044/148637441-19bb993e-4946-4985-ba88-82deb356a8fe.png"
-        Glide.with(this).load(url1).into(binding.tmpImageView)
-        binding.tmpTextView.text = "바뀜"
+//        val url1 = "https://user-images.githubusercontent.com/64190044/148637441-19bb993e-4946-4985-ba88-82deb356a8fe.png"
+//        Glide.with(this).load(url1).into(binding.tmpImageView)
+//        binding.tmpTextView.text = "바뀜"
 
         return  binding.root
 

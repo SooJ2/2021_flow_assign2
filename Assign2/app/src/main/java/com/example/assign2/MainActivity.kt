@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var calendar:Calendar
     lateinit var myFeed:MyFeed
     lateinit var community:Community
+    var userId: String = "userId" // 임시
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
