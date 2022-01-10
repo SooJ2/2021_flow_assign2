@@ -13,7 +13,21 @@ interface RetrofitInterface {
         //input 정보
         @Field("userid") userid:String,
         @Field("userpw") userpw:String
-    ) : Call<Userinfo> //output 정의
+    ) : Call<User> //output 정의
+
+
+
+    @POST("admin/auth/user/add")
+    fun registerUser(
+        @Field("username") username:String,
+        @Field("password") password:String,
+        @Field("password_confirmation") password_confirmation:String
+    )
+//    @POST("userinfo")
+//    fun registerUserInfo(
+//        @Field("user_id") user_id:String,
+//        @Field("password") password:String
+//    )
 
     @GET("feed")
     fun requestFeedsByUserId(
@@ -31,8 +45,8 @@ interface RetrofitInterface {
     ) : Call<List<Comment>>
 
 
-    @GET("userinfo/{userinfo}")
-    fun getUserinfo( @Path("userinfo") id: String): Call<Userinfo>
+    @GET("user/{user}")
+    fun getUser( @Path("user") id: String): Call<User>
 
     @GET("follow/{follow}")
     fun getFollow( @Path("follow") id: String): Call<Follow>
