@@ -49,7 +49,6 @@ class Calendar : Fragment() {
 
 
         binding.calendarPrev.setOnClickListener {
-            println("!!PressPrev/////////")
             i -= 1
             val curCalendar = GregorianCalendar(calYear,calMonth+i,1,0,0,0)
             val tmpCalYear = curCalendar.get(1)
@@ -61,8 +60,6 @@ class Calendar : Fragment() {
         }
 
         binding.calendarNext.setOnClickListener {
-            println("!!PressNext")
-
             i += 1
             val curCalendar = GregorianCalendar(calYear,calMonth+i,1,0,0,0)
             val tmpCalYear = curCalendar.get(1)
@@ -99,10 +96,5 @@ class Calendar : Fragment() {
         }
     }
 
-    fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager){
-        println("refresh@")
-        var ft: FragmentTransaction = fragmentManager.beginTransaction()
-        ft.detach(fragment).attach(fragment).commit()
-    }
 
 }

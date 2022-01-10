@@ -13,7 +13,7 @@ import kotlin.properties.Delegates
 import com.example.assign2.databinding.FragmentMyFeedBinding
 import com.example.assign2.databinding.OnedayFeedsBinding
 
-class MyFeedAdapter(val context: Context, userId: Int, data: ArrayList<ArrayList<String>>): RecyclerView.Adapter<MyFeedAdapter.myFeedViewHolder>() {
+class MyFeedAdapter(val context: Context, userId: String, data: ArrayList<ArrayList<String>>): RecyclerView.Adapter<MyFeedAdapter.myFeedViewHolder>() {
     var datas = data
     val userId = userId
 
@@ -22,7 +22,6 @@ class MyFeedAdapter(val context: Context, userId: Int, data: ArrayList<ArrayList
         fun bind(item:ArrayList<String>) {
             val adapter = MyFeedInnerAdapter(context, userId, item)
             binding.innerRecyclerview.adapter = adapter
-//            val manager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
             binding.innerRecyclerview.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
             binding.myFeedDate.text = "2022.01.08"
         }

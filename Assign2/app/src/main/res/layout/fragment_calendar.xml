@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="20dp"
         android:orientation="vertical">
 
 
@@ -22,57 +23,57 @@
             <TextView
                 android:id="@+id/calendarPrev"
                 android:layout_width="70dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="이전"
+                android:textColor="#4A777F"
                 android:textSize="15sp"
-                android:layout_gravity="center"
-                android:textColor="#4A777F"/>
+                android:gravity="center"/>
+
             <TextView
                 android:id="@+id/calendarYear"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:text="Year"
                 android:layout_marginLeft="10dp"
                 android:textSize="30sp"
-                android:layout_gravity="center"
-                android:textColor="#4A777F" />
+                android:textColor="#4A777F"
+                android:gravity="center"/>
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:text="년"
                 android:layout_marginLeft="10dp"
                 android:textSize="30sp"
-                android:layout_gravity="center"
+                android:gravity="center"
                 android:textColor="#2C5458" />
 
             <TextView
                 android:id="@+id/calendarMonth"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:text="Month"
                 android:layout_marginLeft="10dp"
                 android:textSize="30sp"
-                android:layout_gravity="center"
+                android:gravity="center"
                 android:textColor="#8CAAA6" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:text="월"
                 android:layout_marginLeft="10dp"
                 android:textSize="30sp"
-                android:layout_gravity="center"
+                android:gravity="center"
                 android:textColor="#2C5458" />
             <TextView
                 android:id="@+id/calendarNext"
                 android:layout_width="70dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                android:text="다음"
                 android:layout_marginLeft="10dp"
                 android:textSize="15sp"
-                android:layout_gravity="center"
-                android:gravity="right"
+                android:gravity="center"
                 android:textColor="#4A777F"/>
 
 
@@ -82,7 +83,7 @@
 
         <LinearLayout
             android:id="@+id/calendarLinearLayout"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:background="#8CAAA6"
@@ -157,7 +158,8 @@
             android:id="@+id/calendar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:numColumns="7"/>
+            tools:listitem="@layout/item_calendar"
+            android:numColumns="7" />
     </LinearLayout>
 
 

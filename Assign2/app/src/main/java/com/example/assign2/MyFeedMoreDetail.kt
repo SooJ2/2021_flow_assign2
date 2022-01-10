@@ -16,8 +16,6 @@ class MyFeedMoreDetail : Fragment() {
         super.onCreate(savedInstanceState)
         binding = FragmentMyFeedMoreDetailBinding.inflate(layoutInflater)
 
-//        binding.Linea
-
 
     }
 

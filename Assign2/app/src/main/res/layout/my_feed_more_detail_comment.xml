@@ -2,18 +2,23 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toTopOf="parent"
         android:orientation="horizontal">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/FeedOtherImage"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/ic_launcher_foreground"/>
+            android:src="@drawable/icon_green"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,6 +39,11 @@
                 android:id="@+id/FeedCommentTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="5dp"
+                android:paddingBottom="5dp"
+                android:paddingRight="5dp"
                 android:text="댓글이 표시되는 TextView 입니다."
                 android:gravity="center_vertical"/>
 

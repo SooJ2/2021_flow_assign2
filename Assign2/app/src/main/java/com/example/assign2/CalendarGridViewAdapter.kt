@@ -32,12 +32,10 @@ class CalendarGridViewAdapter(private var context: Context, dateList: ArrayList<
     }
 
     override fun notifyDataSetChanged() {
-        println("notify data changed")
         super.notifyDataSetChanged()
     }
 
     fun update(dateList: ArrayList<String>){
-        println("in update stmt @@")
         dates = dateList
         notifyDataSetChanged()
     }

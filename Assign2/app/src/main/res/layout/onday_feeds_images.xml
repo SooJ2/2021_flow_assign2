@@ -10,7 +10,8 @@
         android:layout_width="0dp"
         android:layout_height="150dp"
         app:layout_constraintDimensionRatio="1:1"
-        android:src="@drawable/ic_launcher_background"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/image_egg"
         android:scaleType="centerCrop"
         />
 
