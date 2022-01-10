@@ -25,7 +25,7 @@ class FeedAdd : Fragment() {
     lateinit var binding: FragmentFeedAddBinding
 //    var barcodes: ArrayList<String> = ArrayList<String>()
     var barcodes:String = ""
-    var foodList: ArrayList<Objects> = ArrayList<Objects>() // 임시로
+    var foodList: ArrayList<Any> = ArrayList<Any>() // 임시로
     var userId:String = "userid" // 임시로 해둠
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -7,7 +7,7 @@ import com.example.assign2.databinding.FeedAddFoodItemBinding
 import java.util.*
 import kotlin.collections.ArrayList
 
-class FeedAddFoodAdapter(val context: Context, userId: String, foods: ArrayList<Objects>): RecyclerView.Adapter<FeedAddFoodAdapter.FeedAddFoodViewHolder>() {
+class FeedAddFoodAdapter(val context: Context, userId: String, foods: ArrayList<Any>): RecyclerView.Adapter<FeedAddFoodAdapter.FeedAddFoodViewHolder>() {
 
     val id = userId
     var foodList = foods

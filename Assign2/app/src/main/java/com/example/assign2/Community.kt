@@ -22,7 +22,7 @@ class Community : Fragment() {
         super.onCreate(savedInstanceState)
         binding = FragmentCommunityBinding.inflate(layoutInflater)
 
-        binding.CommunityRecyclerView.adapter = CommunityFeedAdapter(requireContext(),(activity as MainActivity).userId,communityFeedList)
+        binding.CommunityRecyclerView.adapter = CommunityFeedAdapter(requireContext(),"userid",communityFeedList)
 
 
     }

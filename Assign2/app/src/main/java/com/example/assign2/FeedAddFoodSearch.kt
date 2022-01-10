@@ -5,13 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.assign2.databinding.FragmentFeedAddFoodSearchBinding
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class FeedAddFoodSearch : Fragment() {
 
+    lateinit var binding:FragmentFeedAddFoodSearchBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        binding = FragmentFeedAddFoodSearchBinding.inflate(layoutInflater)
+        binding.FeedAddFoodSearchRecyclerView.adapter = FeedAddFoodSearchAdapter(requireContext(),"임의로 넣음",ArrayList<Any>())
 
     }
 
