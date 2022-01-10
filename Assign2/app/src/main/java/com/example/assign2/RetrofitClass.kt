@@ -36,19 +36,31 @@ data class Login(
 
 data class User(
     @SerializedName("email")
-    val email: String,
+    val email: String?,
     @SerializedName("is_active")
     val is_active: Boolean,
     @SerializedName("is_admin")
     val is_admin: Boolean,
     @SerializedName("private")
-    val private: String?,
+    val private: Boolean,
     @SerializedName("profile_photo")
-    val profile_photo: String
+    val profile_photo: String?
 )
 {
     override fun toString(): String {
         return "Userinfo{email=$email, private=$private, profile_photo=$profile_photo, is_active=$is_active}"
+    }
+}
+
+data class KakaoUser(
+    @SerializedName("email")
+    val email: String?,
+    @SerializedName("profile_photo")
+    val profile_photo: String?
+)
+{
+    override fun toString(): String {
+        return "Kakaouser{email=$email, profile_photo=$profile_photo}"
     }
 }
 
