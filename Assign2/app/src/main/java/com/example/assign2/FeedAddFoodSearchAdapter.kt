@@ -1,6 +1,7 @@
 package com.example.assign2
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.assign2.databinding.FeedAddFoodItemBinding
@@ -8,13 +9,15 @@ import com.example.assign2.databinding.FeedAddFoodSearchBinding
 import java.util.*
 import kotlin.collections.ArrayList
 
-class FeedAddFoodSearchAdapter(val context: Context, userId: String, foods: ArrayList<Any>): RecyclerView.Adapter<FeedAddFoodSearchAdapter.FeedAddFoodSearchViewHolder>()  {
+class FeedAddFoodSearchAdapter(val context: Context, userId: String, foods: ArrayList<Food>): RecyclerView.Adapter<FeedAddFoodSearchAdapter.FeedAddFoodSearchViewHolder>()  {
+
+    var foodList = foods
 
     inner class FeedAddFoodSearchViewHolder(private val binding: FeedAddFoodSearchBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item:ArrayList<Objects>) {
-            binding.FeedAddFoodSearchFoodNameTv
-            binding.FeedAddFoodSearchFoodNameTv
+        fun bind(item: Food) {
+            binding.FeedAddFoodSearchFoodNameTv.text = item.name
+            binding.FeedAddFoodSearchCalTv.text = item.calorie
             binding.FeedAddFoodSearchListLinearLayout.setOnClickListener{
 
             }
@@ -22,14 +25,20 @@ class FeedAddFoodSearchAdapter(val context: Context, userId: String, foods: Arra
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedAddFoodSearchViewHolder {
-        TODO("Not yet implemented")
+        println("&&&&&&&&&&&&&&&&$foodList")
+        val binding = FeedAddFoodSearchBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        return FeedAddFoodSearchViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: FeedAddFoodSearchViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.bind(foodList[position])
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return foodList.size
+    }
+
+    fun setData(foods: ArrayList<Food>){
+        foodList = foods
     }
 }

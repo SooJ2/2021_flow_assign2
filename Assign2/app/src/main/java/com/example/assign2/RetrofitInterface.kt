@@ -62,6 +62,10 @@ interface RetrofitInterface {
     @GET("food/{food}")
     fun getFood( @Path("food") id: String): Call<Food>
 
+    @GET("getFoodByName/{name}")
+//    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    fun getFoodByName( @Path("name") name: String): Call<List<Food>> //
+
     @GET("eatenfood/{eatenfood}")
     fun getEatenFood( @Path("eatenfood") id: String): Call<EatenFood>
 
