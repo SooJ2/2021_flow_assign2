@@ -16,13 +16,11 @@ class MyFeed : Fragment() {
     var fragmentView : View? = null
     private lateinit var binding: FragmentMyFeedBinding
     private lateinit var adapter: MyFeedAdapter
-    var userId by Delegates.notNull<Int>()
+    var userId:String = "user1" //수정해야
     var datas = ArrayList<ArrayList<String>>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        userId = 1
-
         /*tmp dummy datas*/
         val innerUrl1= ArrayList<String>()
         val innerUrl2= ArrayList<String>()
@@ -57,14 +55,11 @@ class MyFeed : Fragment() {
 
         datas = outerUrl
 
-        /*end tmp dummy datas*/
 
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-//        fragmentView = LayoutInflater.from(activity).inflate(R.layout.fragment_my_feed, container, false)
-//        return fragmentView
+
         adapter = MyFeedAdapter(requireContext(),userId,datas)
         binding = FragmentMyFeedBinding.inflate(layoutInflater)
         binding.feedsRecyclerview.adapter = adapter
@@ -73,8 +68,7 @@ class MyFeed : Fragment() {
         binding.adddietbtn.setOnClickListener {
 
             val transaction = (context as AppCompatActivity).supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.frameLayout, FeedAdd())
-            transaction.addToBackStack("detail")
+            transaction.replace(R.id.frameLayout,FeedAdd())
             transaction.commit()
         }
 

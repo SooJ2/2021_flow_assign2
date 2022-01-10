@@ -1,10 +1,16 @@
 package com.example.assign2
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
+import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.*
+import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,6 +60,30 @@ class MainActivity : AppCompatActivity() {
         selectedFragment?.let {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.frameLayout, it).commit()
+        }
+
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        println("********************************************")
+
+        val result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data)
+        if(result != null) {
+            if (result.contents == null) {
+                println("********************************************cancel")
+                Toast.makeText(this,"QR코드 인증이 취소되었습니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                println("********************************************sucess")
+                Toast.makeText(this,"INFO: ${result.contents}",Toast.LENGTH_LONG).show()
+                val frg = (supportFragmentManager.findFragmentById(R.id.frameLayout)) as FeedAdd
+                val barcode:String  = result.contents
+                frg.barcodes = barcode
+
+                }
+        }else{
+            println("********************************************in else stmt")
+            super.onActivityResult(requestCode,resultCode,data)
         }
     }
 }

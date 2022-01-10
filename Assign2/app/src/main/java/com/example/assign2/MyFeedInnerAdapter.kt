@@ -12,7 +12,7 @@ import com.example.assign2.databinding.OndayFeedsImagesBinding
 
 import kotlin.properties.Delegates
 
-class MyFeedInnerAdapter(val context: Context, userId: Int, data: ArrayList<String>): RecyclerView.Adapter<MyFeedInnerAdapter.MyFeedInnerViewHolder>() {
+class MyFeedInnerAdapter(val context: Context, userId: String, data: ArrayList<String>): RecyclerView.Adapter<MyFeedInnerAdapter.MyFeedInnerViewHolder>() {
 
     var images = data
     val userId = userId
