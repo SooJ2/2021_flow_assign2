@@ -2,4 +2,5 @@
     <string name="app_name">Assign2</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="kakao_app_key">kakaob4362eb8b242973e09542fb3da4d41d2</string>
 </resources>

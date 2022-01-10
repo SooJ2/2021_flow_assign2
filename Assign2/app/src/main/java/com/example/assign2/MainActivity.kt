@@ -61,13 +61,13 @@ class MainActivity : AppCompatActivity() {
             .build()
         val service1 = retrofit.create(RetrofitInterface::class.java) // Retrofit instance로 interface 객체 구현
 
-        service1.getUserinfo("1").enqueue(object : Callback<Userinfo> {
-            override fun onFailure(call: Call<Userinfo>, t: Throwable) {
+        service1.getUser("1").enqueue(object : Callback<User> {
+            override fun onFailure(call: Call<User>, t: Throwable) {
                 println("인터넷 연결 실패  ")
                 Log.d("MAINACTIVITY","onFailure ${t.message}") // 인터넷 연결 실
             }
 
-            override fun onResponse(call: Call<Userinfo>, response: Response<Userinfo>) {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
                 if(response.isSuccessful.not()) {
                     println("404 에러..?")
                     Log.d("MAINACTIVITY","onResponse: 실패")
