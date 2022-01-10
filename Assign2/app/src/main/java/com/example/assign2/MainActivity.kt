@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create()) //Gson 변환기 등록 Json을 Class
             .build()
         val service1 = retrofit.create(RetrofitInterface::class.java) // Retrofit instance로 interface 객체 구현
-
         val loginuser = service1.requestKakaoUser(email)
         loginuser.enqueue(object : Callback<List<KakaoUser>> {
             override fun onResponse(

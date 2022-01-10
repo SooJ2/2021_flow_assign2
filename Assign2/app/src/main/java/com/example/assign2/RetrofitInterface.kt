@@ -23,9 +23,9 @@ interface RetrofitInterface {
         @Field("profile_photo") profile_photo: String?
     ) : Call<KakaoUser>
 
-    @GET("kakaouser/")
+    @GET("getKakaoUserByEmail/{email}")
     fun requestKakaoUser(
-        @Query("email") email: String?
+        @Path("email") email: String?
     ) : Call<List<KakaoUser>>
 
 //    @POST("userinfo")
@@ -34,18 +34,18 @@ interface RetrofitInterface {
 //        @Field("password") password:String
 //    )
 
-    @GET("feed")
+    @GET("getFeedById/{uploader}")
     fun requestFeedsByUserId(
-        @Query("uploader") uploader:Int
+        @Path("uploader") uploader:Int
     ) : Call<List<Feed>>
 
-    @GET("eatenfood")
+    @GET("getEatenFoodById/{eater}")
     fun requestEatsByFeedId(
-        @Query("eater") eater:Int
+        @Path("eater") eater:Int
     ) : Call<List<EatenFood>>
 
     @GET("comment")
-    fun requestCommentByFeedId(
+    fun requestFoodByFoodId(
         @Query("comment_writer") comment_writer:String
     ) : Call<List<Comment>>
 
