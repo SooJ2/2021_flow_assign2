@@ -9,7 +9,10 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
@@ -20,8 +23,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
+        setContentView(R.layout.activity_main)
 
         calendar = Calendar()
         myFeed = MyFeed()
@@ -51,6 +54,34 @@ class MainActivity : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
         })
+
+        // retrofit start
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://192.249.18.108:80/") //baseUrl 등록, 반드시 /로 마무리 (protocal(https://) + URL)
+            .addConverterFactory(GsonConverterFactory.create()) //Gson 변환기 등록 Json을 Class
+            .build()
+        val service1 = retrofit.create(RetrofitInterface::class.java) // Retrofit instance로 interface 객체 구현
+
+        service1.getUser("1").enqueue(object : Callback<User> {
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                println("인터넷 연결 실패  ")
+                Log.d("MAINACTIVITY","onFailure ${t.message}") // 인터넷 연결 실
+            }
+
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if(response.isSuccessful.not()) {
+                    println("404 에러..?")
+                    Log.d("MAINACTIVITY","onResponse: 실패")
+                    return
+                }
+                response.body()?.let {
+                    val result = response.body()
+                    println("성공: ${result.toString()}")
+                    Log.d("MAINACTIVITY","onResponse: 성공, 결과\n${result.toString()}")
+                }
+            }
+        })
+        // retrofit end
 
     }
 

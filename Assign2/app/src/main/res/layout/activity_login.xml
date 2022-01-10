@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+<!--    <EditText-->
+<!--        android:id="@+id/editTextTextID"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:ems="10"-->
+<!--        android:inputType="textPersonName"-->
+<!--        android:text="id"/>-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/editTextTextPassword"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:ems="10"-->
+<!--        android:inputType="textPassword"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/editTextTextID"-->
+<!--        android:text="password"/>-->
+
+<!--    <Button-->
+<!--        android:id="@+id/loginbutton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Log In"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/editTextTextPassword"/>-->
+<!--    <Button-->
+<!--        android:id="@+id/signupbutton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Sign Up"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/editTextTextPassword"-->
+<!--        app:layout_constraintLeft_toRightOf="@id/loginbutton"/>-->
+    <Button
+        android:id="@+id/kakaobutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="kakao"/>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
