@@ -5,24 +5,15 @@
     android:layout_height="match_parent"
     tools:context=".Community">
 
-    <LinearLayout
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/CommunityRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        tools:listitem="@layout/community_feed_item">
 
-        <TextView
-            android:id="@+id/tmpTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="temp text"
-            android:textSize="30sp"
-            />
-        <ImageView
-            android:id="@+id/tmpImageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+    </androidx.recyclerview.widget.RecyclerView>
 
-    </LinearLayout>
 
 
 

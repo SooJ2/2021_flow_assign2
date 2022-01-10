@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var calendar:Calendar
     lateinit var myFeed:MyFeed
     lateinit var community:Community
+
     var user:KakaoUser = KakaoUser("null", "1")
 
     override fun onCreate(savedInstanceState: Bundle?) {
