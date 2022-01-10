@@ -31,8 +31,8 @@
                 android:layout_weight="1"/>
             <ImageButton
                 android:id="@+id/FeedAddFoodSearchButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@drawable/search"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"

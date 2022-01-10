@@ -115,10 +115,12 @@ data class Comment(
 }
 
 data class Food(
+    @SerializedName("id")
+    val id : Int,
     @SerializedName("name")
     val name: String,
     @SerializedName("calorie")
-    val calorie: Int
+    val calorie: String
 )
 {
     override fun toString(): String {

@@ -54,6 +54,9 @@ class MyFeed : Fragment() {
         outerUrl.add(innerUrl4)
 
         datas = outerUrl
+        /*end dummy data*/
+
+
 
 
     }
