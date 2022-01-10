@@ -11,6 +11,11 @@ import android.widget.BaseAdapter
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.assign2.databinding.FragmentCalendarBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.Exception
 import java.util.*
 import java.util.Calendar.MONTH
@@ -20,6 +25,24 @@ import kotlin.collections.ArrayList
 class Calendar : Fragment() {
 
     private lateinit var binding: FragmentCalendarBinding
+    var feeds : ArrayList<ArrayList<Feed>> = ArrayList<ArrayList<Feed>>()
+
+    val retrofitforFeed = Retrofit.Builder()
+        .baseUrl("http://192.249.18.108:80/") //baseUrl 등록, 반드시 /로 마무리 (protocal(https://) + URL)
+        .addConverterFactory(GsonConverterFactory.create()) //Gson 변환기 등록 Json을 Class
+        .build()
+    val serviceforFeed = retrofitforFeed.create(RetrofitInterface::class.java) // Retrofit instance로 interface 객체 구현
+//    val callFeeds = serviceforFeed.requestFeedsByUserId(user.id)
+//    callFeeds.enqueue(object : Callback<List<Feed>> {
+//        override fun onResponse(call: Call<List<Feed>>, response: Response<List<Feed>>) {
+//            TODO("Not yet implemented")
+//        }
+//
+//        override fun onFailure(call: Call<List<Feed>>, t: Throwable) {
+//            TODO("Not yet implemented")
+//        }
+//    })
+
 
     var mCalendar = ArrayList<String>()
     var calYear = 0

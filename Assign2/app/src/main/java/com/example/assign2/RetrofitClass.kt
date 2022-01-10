@@ -53,6 +53,8 @@ data class User(
 }
 
 data class KakaoUser(
+    @SerializedName("id")
+    val id: Int,
     @SerializedName("email")
     val email: String?,
     @SerializedName("profile_photo")
@@ -60,7 +62,7 @@ data class KakaoUser(
 )
 {
     override fun toString(): String {
-        return "Kakaouser{email=$email, profile_photo=$profile_photo}"
+        return "Kakaouser{id=$id, email=$email, profile_photo=$profile_photo}"
     }
 }
 

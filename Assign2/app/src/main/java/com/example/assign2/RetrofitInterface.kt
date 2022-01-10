@@ -36,12 +36,12 @@ interface RetrofitInterface {
 
     @GET("feed")
     fun requestFeedsByUserId(
-        @Query("uploader") uploader:String
+        @Query("uploader") uploader:Int
     ) : Call<List<Feed>>
 
     @GET("eatenfood")
     fun requestEatsByFeedId(
-        @Query("eater") eater:String
+        @Query("eater") eater:Int
     ) : Call<List<EatenFood>>
 
     @GET("comment")
