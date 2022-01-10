@@ -31,14 +31,14 @@
             android:layout_height="30dp"
             android:src="@drawable/search"
             android:layout_gravity="center"
-            android:scaleType="centerCrop"
-            android:background="0"
-            />
+            android:scaleType="centerCrop"/>
+<!--            android:background="0"-->
+            
 
     </LinearLayout>
     
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width=""
-        android:layout_height=""
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:layout_width=""-->
+<!--        android:layout_height=""-->
 
 </FrameLayout>
