@@ -120,9 +120,6 @@ class MainActivity : AppCompatActivity() {
                     1 -> {
                         replaceView(myFeed)
                     }
-                    2 -> {
-                        replaceView(community)
-                    }
                 }
             }
 
@@ -173,7 +170,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this,"QR코드 인증이 취소되었습니다.", Toast.LENGTH_SHORT).show()
             } else {
                 println("********************************************sucess")
-                Toast.makeText(this,"INFO: ${result.contents}",Toast.LENGTH_LONG).show()
+//                Toast.makeText(this,"INFO: ${result.contents}",Toast.LENGTH_LONG).show()
                 val frg = (supportFragmentManager.findFragmentById(R.id.frameLayout)) as FeedAdd
                 val barcode:String  = result.contents
                 frg.barcodes = barcode
@@ -184,4 +181,6 @@ class MainActivity : AppCompatActivity() {
             super.onActivityResult(requestCode,resultCode,data)
         }
     }
+
+
 }

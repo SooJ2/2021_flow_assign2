@@ -71,7 +71,7 @@ class MyFeed : Fragment() {
         binding.adddietbtn.setOnClickListener {
 
             val transaction = (context as AppCompatActivity).supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.frameLayout,FeedAdd())
+            transaction.replace(R.id.frameLayout,FeedAdd(),"ADD")
             transaction.addToBackStack("myfeed")
             transaction.commit()
         }
