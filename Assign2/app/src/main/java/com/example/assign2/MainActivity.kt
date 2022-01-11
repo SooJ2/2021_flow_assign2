@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import com.example.assign2.login.LoginActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.zxing.integration.android.IntentIntegrator
@@ -25,27 +26,68 @@ class MainActivity : AppCompatActivity() {
     lateinit var myFeed:MyFeed
     lateinit var community:Community
 
+    var retrofitaa = RetrofitInterface.getInstance()
     var user:KakaoUser = KakaoUser(-1,"null", "1")
+    var n=0
+    var calories: ArrayList<String> = ArrayList<String>()
+    var retrofitInterface = RetrofitInterface.getInstance()
+
+    var feeds : ArrayList<Feed> = ArrayList<Feed>()
+    var eatenFoodList = MutableLiveData<List<EatenFood>>()
+    var calorieList = ArrayList<Int>()
+    var foodList = ArrayList<Food>()
+
+
+    fun getCaloriesFromFeed(feed: Feed)  {
+        val eatuser = retrofitInterface.requestEatsByFeedId(feed.id)
+        eatuser.enqueue(object : Callback<List<EatenFood>> {
+            override fun onResponse(
+                call: Call<List<EatenFood>>,
+                response: Response<List<EatenFood>>
+            ) {
+                eatenFoodList.postValue(response.body())
+            }
+            override fun onFailure(call: Call<List<EatenFood>>, t: Throwable) {
+                Log.d("skdh", t.toString())
+            }
+        })
+        eatenFoodList.observe((this), androidx.lifecycle.Observer { myEatenFoodList->
+            for (food in myEatenFoodList) {
+                retrofitInterface.getFood(food.eaten_food).enqueue(object: Callback<Food> {
+                    override fun onResponse(call: Call<Food>, response: Response<Food>) {
+//                        Log.d("FOOD", response.code().toString())
+                        val tempFood = Food(response.body()!!.id, response.body()!!.name, response.body()!!.calorie)
+//                        Log.d("tempFood!!", tempFood.calorie.toString())
+                        foodList.add(tempFood)
+                        calorieList.add(tempFood.calorie.toInt())
+                        n += tempFood.calorie.toInt()
+//                        Log.d("n1!!", n.toString())
+                    }
+                    override fun onFailure(call: Call<Food>, t: Throwable) {
+//                        Log.e("ERROR", t.message.toString())
+                    }
+
+                })
+            }
+        })
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val email = intent.getStringExtra("email")
+
         setContentView(R.layout.activity_main)
 
-        val email: String? = intent.getStringExtra("email")
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.249.18.108:80/") //baseUrl 등록, 반드시 /로 마무리 (protocal(https://) + URL)
-            .addConverterFactory(GsonConverterFactory.create()) //Gson 변환기 등록 Json을 Class
-            .build()
-        val service1 = retrofit.create(RetrofitInterface::class.java) // Retrofit instance로 interface 객체 구현
-        val loginuser = service1.requestKakaoUser(email)
+        val loginuser = retrofitaa.requestKakaoUser(email)
         loginuser.enqueue(object : Callback<List<KakaoUser>> {
             override fun onResponse(
                 call: Call<List<KakaoUser>>,
                 response: Response<List<KakaoUser>>
             ) {
                 if (response.body()?.size==0) {
-                    val call:Call<KakaoUser> = service1.setNewKakaoUser(email, "https://user-images.githubusercontent.com/64190044/148728447-3ab5d279-7bfa-4f03-9418-20d6bb05963c.png")
+                    val call:Call<KakaoUser> = retrofitaa.setNewKakaoUser(email, "https://user-images.githubusercontent.com/64190044/148728447-3ab5d279-7bfa-4f03-9418-20d6bb05963c.png")
                     call.enqueue(object : Callback<KakaoUser> {
                         override fun onResponse(call: Call<KakaoUser>, response: Response<KakaoUser>) {
                             val tempuser: KakaoUser = response.body() as KakaoUser
@@ -92,15 +134,59 @@ class MainActivity : AppCompatActivity() {
 
         })
 
-//        println("$user #####")
-//        if (user.email.equals("null")) {
-//            Toast.makeText(this,"연결이 실패했습니다. 다시 로그인해주세요.", Toast.LENGTH_SHORT).show()
-//            val intent = Intent(this, LoginActivity::class.java)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//            intent.run {this@MainActivity.startActivity(this)}
+        val callFeeds = retrofitInterface.requestFeedsByUserId(1) //user.id로 바꿔야함!!!!
+        callFeeds.enqueue(object : Callback<List<Feed>> {
+            override fun onResponse(call: Call<List<Feed>>, response: Response<List<Feed>>) {
+                if (response.isSuccessful.not()){
+                    Log.e("S", "NOT SUCCESS")
+                    return
+                }
+                response.body()?.let{
+                    if(it.count()!=0){
+                        for(i in 0 until it.count()){
+                            feeds.add(it[i])
+                        }
+                    }
+                    else {
+                        Log.e("D", "DO NOT ACCESS")
+                    }
+                }
+//                var m=0
+//                if (response.body() != null) {
+//                    for(i in 0 until (response.body()!!.size)) {
+//                        if (i==0) {
+//                            feeds.add(arrayListOf(Feed(response.body()!![i].id, response.body()!![i].uploader, response.body()!![i].feed_photo, response.body()!![i].likes, response.body()!![i].upload_time, response.body()!![i].update_time, response.body()!![i].eat_date, response.body()!![i].diet_explain)))
+//                        }
+//                        else {
+//                            if (response.body()!![i-1].eat_date.equals(response.body()!![i].eat_date)) {
+//                                feeds[m].add(Feed(response.body()!![i].id, response.body()!![i].uploader, response.body()!![i].feed_photo, response.body()!![i].likes, response.body()!![i].upload_time, response.body()!![i].update_time, response.body()!![i].eat_date, response.body()!![i].diet_explain))
+//                            }
+//                            else {
+//                                m++
+//                                feeds.add(arrayListOf(Feed(response.body()!![i].id, response.body()!![i].uploader, response.body()!![i].feed_photo, response.body()!![i].likes, response.body()!![i].upload_time, response.body()!![i].update_time, response.body()!![i].eat_date, response.body()!![i].diet_explain)))
+//                            }
+//                        }
+//                    }
+//                    Log.d("feedsinenqueue", feeds.toString())
+//                }
+                Log.d("feedsin##", feeds.toString())
+            }
+
+            override fun onFailure(call: Call<List<Feed>>, t: Throwable) {
+                Log.d("error1111", "error")
+            }
+        })
+
+
+        Log.d("feeds##", feeds.toString())
+//        for (i in 0 until (feeds.size)) {
+//            for (j in 0 until (feeds[i].size)) {
+//                getCaloriesFromFeed(feeds[i][j])
+//                Log.d("dddkk", calorieList.toString())
+//            }
 //        }
 
+//------------------------------------------달력 생성-------------------------------------------------
 
 
         calendar = Calendar()
@@ -131,17 +217,6 @@ class MainActivity : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
         })
-
-//        // retrofit start
-//        val retrofit = Retrofit.Builder()
-//            .baseUrl("http://192.249.18.108:80/") //baseUrl 등록, 반드시 /로 마무리 (protocal(https://) + URL)
-//            .addConverterFactory(GsonConverterFactory.create()) //Gson 변환기 등록 Json을 Class
-//            .build()
-//        val service1 = retrofit.create(RetrofitInterface::class.java) // Retrofit instance로 interface 객체 구현
-
-        // retrofit end
-
-
     }
 
 

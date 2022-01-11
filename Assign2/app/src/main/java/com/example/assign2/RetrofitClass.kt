@@ -98,13 +98,20 @@ data class Feed(
 )
 {
     override fun toString(): String {
-        return "Feed{uploader=$uploader, feed_photo=$feed_photo, likes=$likes, eat_date=$eat_date, diet_explain=$diet_explain}"
+        return "Feed{id = $id, uploader=$uploader, feed_photo=$feed_photo, likes=$likes, eat_date=$eat_date, diet_explain=$diet_explain}"
     }
 }
 
+//data class Feed(
+//    val feed_photo: String,
+//    val date: String,
+//    val food: List<String>,
+//    val memo: String
+//)
+
 data class Comment(
     @SerializedName("feed")
-    val feed: Feed,
+    val feed: Int,
     @SerializedName("writer")
     val writer: Int,
     @SerializedName("text")
@@ -134,10 +141,11 @@ data class EatenFood(
     @SerializedName("eater")
     val eater: Int,
     @SerializedName("eaten_food")
-    val eaten_food: Food
+    val eaten_food: Int
 )
 {
     override fun toString(): String {
         return "EatenFood{eater=$eater, eaten_food=$eaten_food}"
     }
 }
+
