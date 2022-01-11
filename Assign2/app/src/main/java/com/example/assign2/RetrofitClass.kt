@@ -79,6 +79,8 @@ data class Follow(
 }
 
 data class Feed(
+    @SerializedName("id")
+    val id: Int,
     @SerializedName("uploader")
     val uploader: Int,
     @SerializedName("feed_photo")
@@ -86,23 +88,30 @@ data class Feed(
     @SerializedName("likes")
     val likes: Int,
     @SerializedName("upload_time")
-    val upload_time: DateTimeFormatter,
+    val upload_time: String,
     @SerializedName("update_time")
-    val update_time: DateTimeFormatter,
+    val update_time: String,
     @SerializedName("eat_date")
-    val eat_date: DatePicker,
+    val eat_date: String,
     @SerializedName("diet_explain")
     val diet_explain: String
 )
 {
     override fun toString(): String {
-        return "Feed{uploader=$uploader, feed_photo=$feed_photo, likes=$likes, upload_time=$upload_time, update_time=$update_time, eat_date=$eat_date, diet_explain=$diet_explain}"
+        return "Feed{id = $id, uploader=$uploader, feed_photo=$feed_photo, likes=$likes, eat_date=$eat_date, diet_explain=$diet_explain}"
     }
 }
 
+//data class Feed(
+//    val feed_photo: String,
+//    val date: String,
+//    val food: List<String>,
+//    val memo: String
+//)
+
 data class Comment(
     @SerializedName("feed")
-    val feed: Feed,
+    val feed: Int,
     @SerializedName("writer")
     val writer: Int,
     @SerializedName("text")
@@ -132,10 +141,13 @@ data class EatenFood(
     @SerializedName("eater")
     val eater: Int,
     @SerializedName("eaten_food")
-    val eaten_food: Food
+    val eaten_food: Int,
+    @SerializedName("eaten_calorie")
+    val eaten_calorie: String
 )
 {
     override fun toString(): String {
         return "EatenFood{eater=$eater, eaten_food=$eaten_food}"
     }
 }
+

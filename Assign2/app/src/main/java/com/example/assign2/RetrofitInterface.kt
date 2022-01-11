@@ -1,6 +1,11 @@
 package com.example.assign2
 
+import com.google.gson.GsonBuilder
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 interface RetrofitInterface {
@@ -14,6 +19,28 @@ interface RetrofitInterface {
 //        @Field("userid") userid:String,
 //        @Field("userpw") userpw:String
 //    ) : Call<User> //output 정의
+    companion object {
+        var retrofitService: RetrofitInterface? = null
+        private val gson = GsonBuilder().setLenient().create()
+
+        fun getInstance() : RetrofitInterface {
+            if (retrofitService == null) {
+                val clientBuilder = OkHttpClient.Builder()
+                val loggingInterceptor = HttpLoggingInterceptor()
+                loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+                clientBuilder.addInterceptor(loggingInterceptor)
+
+
+                val retrofit = Retrofit.Builder()
+                    .baseUrl("http://192.249.18.108:80/") // 서버 주소
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .client(clientBuilder.build())
+                    .build()
+                retrofitService = retrofit.create(RetrofitInterface::class.java)
+            }
+            return retrofitService!!
+        }
+    }
 
 
     @FormUrlEncoded
@@ -23,9 +50,9 @@ interface RetrofitInterface {
         @Field("profile_photo") profile_photo: String?
     ) : Call<KakaoUser>
 
-    @GET("kakaouser/")
+    @GET("getKakaoUserByEmail/{email}")
     fun requestKakaoUser(
-        @Query("email") email: String?
+        @Path("email") email: String?
     ) : Call<List<KakaoUser>>
 
 //    @POST("userinfo")
@@ -34,18 +61,18 @@ interface RetrofitInterface {
 //        @Field("password") password:String
 //    )
 
-    @GET("feed")
+    @GET("getFeedById/{uploader}")
     fun requestFeedsByUserId(
-        @Query("uploader") uploader:Int
+        @Path("uploader") uploader:Int
     ) : Call<List<Feed>>
 
-    @GET("eatenfood")
+    @GET("getEatenFoodById/{eater}")
     fun requestEatsByFeedId(
-        @Query("eater") eater:Int
+        @Path("eater") eater:Int
     ) : Call<List<EatenFood>>
 
     @GET("comment")
-    fun requestCommentByFeedId(
+    fun requestFoodByFoodId(
         @Query("comment_writer") comment_writer:String
     ) : Call<List<Comment>>
 
@@ -60,7 +87,7 @@ interface RetrofitInterface {
     fun getFeed( @Path("feed") id: String): Call<Feed>
 
     @GET("food/{food}")
-    fun getFood( @Path("food") id: String): Call<Food>
+    fun getFood( @Path("food") id: Int): Call<Food>
 
     @GET("getFoodByName/{name}")
 //    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")

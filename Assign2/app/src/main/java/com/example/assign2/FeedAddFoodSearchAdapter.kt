@@ -27,7 +27,6 @@ class FeedAddFoodSearchAdapter(val context: Context, foods: ArrayList<Food>): Re
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedAddFoodSearchViewHolder {
-        println("&&&&&&&&&&&&&&&&$foodList")
         val binding = FeedAddFoodSearchBinding.inflate(LayoutInflater.from(parent.context))
         return FeedAddFoodSearchViewHolder(binding)
     }
