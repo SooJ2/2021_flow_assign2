@@ -27,6 +27,10 @@ class Calendar : Fragment() {
     var calMonth = 0
     var i = 0
     lateinit var calAdapter: CalendarGridViewAdapter
+
+    var feeds : ArrayList<ArrayList<Feed>> = ArrayList<ArrayList<Feed>>()
+    var retrofitInterface = RetrofitInterface.getInstance()
+
 //    var n=0
 //    var calories: ArrayList<String> = ArrayList<String>()
 //    var retrofitInterface = RetrofitInterface.getInstance()
@@ -104,7 +108,82 @@ class Calendar : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+//////////////////////////////////
+        binding = FragmentCalendarBinding.inflate(layoutInflater)
+        val today = GregorianCalendar()
+        calYear = today.get(1)
+        calMonth = today.get(2)
+        setCalendarList(calYear,calMonth)
+        calAdapter = CalendarGridViewAdapter(requireContext(),mCalendar)
+        binding.calendarMonth.text = (calMonth+1).toString()
+        binding.calendarYear.text = calYear.toString()
+        val callFeeds = retrofitInterface.requestFeedsByUserId(1) //user.id로 바꿔야함!!!!
+        callFeeds.enqueue(object : Callback<List<Feed>> {
+            override fun onResponse(call: Call<List<Feed>>, response: Response<List<Feed>>) {
+//                if (response.isSuccessful.not()){
+//                    Log.e("S", "NOT SUCCESS")
+//                    return
+//                }
+//                response.body()?.let{
+//                    if(it.count()!=0){
+//                        for(i in 0 until it.count()){
+//                            feeds.add(it[i])
+//                        }
+//                    }
+//                    else {
+//                        Log.e("D", "DO NOT ACCESS")
+//                    }
+//                }
+                var m=0
+                if (response.body() != null) {
+                    for(i in 0 until (response.body()!!.size)) {
+                        if (i==0) {
+                            feeds.add(arrayListOf(Feed(response.body()!![i].id, response.body()!![i].uploader, response.body()!![i].feed_photo, response.body()!![i].likes, response.body()!![i].upload_time, response.body()!![i].update_time, response.body()!![i].eat_date, response.body()!![i].diet_explain)))
+                        }
+                        else {
+                            if (response.body()!![i-1].eat_date.equals(response.body()!![i].eat_date)) {
+                                feeds[m].add(Feed(response.body()!![i].id, response.body()!![i].uploader, response.body()!![i].feed_photo, response.body()!![i].likes, response.body()!![i].upload_time, response.body()!![i].update_time, response.body()!![i].eat_date, response.body()!![i].diet_explain))
+                            }
+                            else {
+                                m++
+                                feeds.add(arrayListOf(Feed(response.body()!![i].id, response.body()!![i].uploader, response.body()!![i].feed_photo, response.body()!![i].likes, response.body()!![i].upload_time, response.body()!![i].update_time, response.body()!![i].eat_date, response.body()!![i].diet_explain)))
+                            }
+                        }
+                    }
+                }
+                Log.d("feedsin##", feeds.toString())
+                for (i in 0 until feeds.size) {
+                    var n=0
+                    for (j in 0 until feeds[i].size) {
+                        val eatenfoodcall = retrofitInterface.requestEatsByFeedId(feeds[i][j].id)
+                        eatenfoodcall.enqueue(object : Callback<List<EatenFood>> {
+                            override fun onResponse(
+                                call: Call<List<EatenFood>>,
+                                response: Response<List<EatenFood>>
+                            ) {
+                                var ns: ArrayList<Int> = ArrayList<Int>()
+                                var date: String = ""
+                                for (k in 0 until response.body()!!.size) {
+                                    n += response.body()!![k].eaten_calorie.toInt()
+                                }
+                                //여기서 지속적으로 ns 이용해야
+                                ns.add(n)
+                                Log.d("ns#??", ns.toString() + feeds[i][j].eat_date)
+                                calAdapter.getInfo(feeds[i][j].eat_date, ns[0].toString())
+                                calAdapter.notifyDataSetChanged()
+                            }
+                            override fun onFailure(call: Call<List<EatenFood>>, t: Throwable) {
+                                Log.e("a", "b")
+                            }
+                        })
+                    }
+                }
+            }
+            override fun onFailure(call: Call<List<Feed>>, t: Throwable) {
+                Log.e("error1111", "error")
+            }
+        })
+        /////////////////////////////////////
 //        val retrofitforFeed = Retrofit.Builder()
 //            .baseUrl("http://192.249.18.108:80/") //baseUrl 등록, 반드시 /로 마무리 (protocal(https://) + URL)
 //            .addConverterFactory(GsonConverterFactory.create()) //Gson 변환기 등록 Json을 Class
@@ -154,14 +233,8 @@ class Calendar : Fragment() {
 //        }
 
 
-        binding = FragmentCalendarBinding.inflate(layoutInflater)
-        val today = GregorianCalendar()
-        calYear = today.get(1)
-        calMonth = today.get(2)
-        setCalendarList(calYear,calMonth)
-        calAdapter = CalendarGridViewAdapter(requireContext(),mCalendar)
-        binding.calendarMonth.text = (calMonth+1).toString()
-        binding.calendarYear.text = calYear.toString()
+        calAdapter.notifyDataSetChanged()
+
     }
 
     override fun onCreateView(

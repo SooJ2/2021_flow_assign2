@@ -19,9 +19,9 @@
             android:layout_margin="4dp" />
 
         <ImageView
+            android:id="@+id/calendarImageView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/image_veg"/>
+            android:layout_height="match_parent" />
 
 
     </LinearLayout>
