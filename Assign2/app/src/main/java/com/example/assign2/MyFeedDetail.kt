@@ -17,7 +17,7 @@ class MyFeedDetail : Fragment() {
         binding = FragmentMyFeedDetailBinding.inflate(layoutInflater)
         binding.FeedLinearLayout3.setOnClickListener{
 
-            println("%%%%%%%%%%%%%%%%%%%%%%%clicked")
+//            println("%%%%%%%%%%%%%%%%%%%%%%%clicked")
             var nextFragment = MyFeedMoreDetail()
 //            var bundle = Bundle()
 //            bundle.putInt("index",index as Int)
