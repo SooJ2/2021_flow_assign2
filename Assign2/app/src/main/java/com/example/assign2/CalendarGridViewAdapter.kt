@@ -10,6 +10,9 @@ import kotlinx.android.synthetic.main.item_calendar.view.*
 class CalendarGridViewAdapter(private var context: Context, dateList: ArrayList<String>): BaseAdapter() {
 
     var dates = dateList
+    lateinit var feeds: ArrayList<Feed>
+    lateinit var eat:ArrayList<EatenFood>
+    lateinit var foods:ArrayList<Food>
 
     override fun getCount(): Int {
         return dates.size
@@ -38,5 +41,17 @@ class CalendarGridViewAdapter(private var context: Context, dateList: ArrayList<
     fun update(dateList: ArrayList<String>){
         dates = dateList
         notifyDataSetChanged()
+    }
+
+    fun uploadFeeds (feed:ArrayList<Feed>){
+        feeds = feed
+    }
+
+    fun uploadEat (eat:ArrayList<EatenFood>){
+
+    }
+
+    fun uploadFood(foods:ArrayList<Food>){
+
     }
 }
