@@ -27,25 +27,26 @@ class MyFeed : Fragment() {
         val innerUrl3= ArrayList<String>()
         val innerUrl4= ArrayList<String>()
         val outerUrl = ArrayList<ArrayList<String>>()
-        innerUrl1.add("https://user-images.githubusercontent.com/64190044/148642694-df63295e-9e26-456f-b2dd-59ecc3f92aca.png")
-        innerUrl1.add("https://user-images.githubusercontent.com/64190044/148642701-1848582d-ecf1-426d-ba9c-6272c93a671d.png")
-        innerUrl1.add("https://user-images.githubusercontent.com/64190044/148642706-7fb9f9fa-058b-4543-ad3a-8b29ea277089.png")
-        innerUrl1.add("https://user-images.githubusercontent.com/64190044/148642708-5a4e707a-8f93-4b9e-9436-ef5b98153e1d.png")
+        innerUrl1.add("https://user-images.githubusercontent.com/64190044/148931545-13ff2bf4-808c-4b6f-8bfa-91b6cd4597bc.jpeg")
+        innerUrl1.add("https://user-images.githubusercontent.com/64190044/148931626-da679248-0f1b-406c-a731-c2a6f93a5d44.jpeg")
+        innerUrl1.add("https://user-images.githubusercontent.com/64190044/148931632-41e35718-c087-421c-9ab0-d2fff2ee8447.jpeg")
+        innerUrl1.add("https://user-images.githubusercontent.com/64190044/148931548-6e62fcb0-5049-4be8-a38d-44dde51fc289.jpeg")
 
-        innerUrl2.add("https://user-images.githubusercontent.com/64190044/148642706-7fb9f9fa-058b-4543-ad3a-8b29ea277089.png")
-        innerUrl2.add("https://user-images.githubusercontent.com/64190044/148642708-5a4e707a-8f93-4b9e-9436-ef5b98153e1d.png")
-        innerUrl2.add("https://user-images.githubusercontent.com/64190044/148642694-df63295e-9e26-456f-b2dd-59ecc3f92aca.png")
-        innerUrl2.add("https://user-images.githubusercontent.com/64190044/148642701-1848582d-ecf1-426d-ba9c-6272c93a671d.png")
+        innerUrl2.add("https://user-images.githubusercontent.com/64190044/148931551-05f89acf-26db-4ddf-a1b9-620df2fdcdea.jpeg")
+        innerUrl2.add("https://user-images.githubusercontent.com/64190044/148931555-fd39edfc-1d93-486d-9bea-bc25dbfab755.jpeg")
+        innerUrl2.add("https://user-images.githubusercontent.com/64190044/148931559-32760cf2-29a4-48d0-97ea-6b85b3978ca8.jpeg")
+        innerUrl2.add("https://user-images.githubusercontent.com/64190044/148931641-2c8f79cc-d275-437b-9a96-da002bf591fd.jpeg")
 
-        innerUrl3.add("https://user-images.githubusercontent.com/64190044/148642694-df63295e-9e26-456f-b2dd-59ecc3f92aca.png")
-        innerUrl3.add("https://user-images.githubusercontent.com/64190044/148642701-1848582d-ecf1-426d-ba9c-6272c93a671d.png")
-        innerUrl3.add("https://user-images.githubusercontent.com/64190044/148642706-7fb9f9fa-058b-4543-ad3a-8b29ea277089.png")
-        innerUrl3.add("https://user-images.githubusercontent.com/64190044/148642708-5a4e707a-8f93-4b9e-9436-ef5b98153e1d.png")
+        innerUrl3.add("https://user-images.githubusercontent.com/64190044/148931516-7de01d49-877f-4e4c-914c-66af89c3e514.jpeg")
+        innerUrl3.add("https://user-images.githubusercontent.com/64190044/148931524-9dfa483c-1838-42eb-b9c5-0a73dd921163.jpeg")
+        innerUrl3.add("https://user-images.githubusercontent.com/64190044/148931528-8f055339-1f14-4257-a049-c63fd2a9f1b6.jpeg")
+        innerUrl3.add("https://user-images.githubusercontent.com/64190044/148931533-fd2b69aa-8167-41d2-96d3-25de88f2551b.jpeg")
 
-        innerUrl4.add("https://user-images.githubusercontent.com/64190044/148642706-7fb9f9fa-058b-4543-ad3a-8b29ea277089.png")
-        innerUrl4.add("https://user-images.githubusercontent.com/64190044/148642708-5a4e707a-8f93-4b9e-9436-ef5b98153e1d.png")
-        innerUrl4.add("https://user-images.githubusercontent.com/64190044/148642694-df63295e-9e26-456f-b2dd-59ecc3f92aca.png")
-        innerUrl4.add("https://user-images.githubusercontent.com/64190044/148642701-1848582d-ecf1-426d-ba9c-6272c93a671d.png")
+        innerUrl4.add("https://user-images.githubusercontent.com/64190044/148931535-52ce5f83-6160-4315-886b-7f525ea3dc1a.jpeg")
+        innerUrl4.add("https://user-images.githubusercontent.com/64190044/148931540-7049b62c-78ba-4c2e-8edf-196f69158103.jpeg")
+        innerUrl4.add("https://user-images.githubusercontent.com/64190044/148931542-b7d23012-ea31-4c2d-95c2-bf60ce7a7ae2.jpeg")
+        innerUrl4.add("https://user-images.githubusercontent.com/64190044/148931543-1587571d-0fb6-46e2-936f-48774e4b34e7.jpeg")
+
 
 
         outerUrl.add(innerUrl1)
@@ -65,6 +66,8 @@ class MyFeed : Fragment() {
 
         adapter = MyFeedAdapter(requireContext(),userId,datas)
         binding = FragmentMyFeedBinding.inflate(layoutInflater)
+        binding.myFeedUserId.setText((activity as MainActivity).user.email)
+
         binding.feedsRecyclerview.adapter = adapter
         binding.feedsRecyclerview.layoutManager = LinearLayoutManager(activity)
 

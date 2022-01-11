@@ -11,6 +11,9 @@ import kotlinx.android.synthetic.main.item_calendar.view.*
 class CalendarGridViewAdapter(private var context: Context, dateList: ArrayList<String>): BaseAdapter() {
 
     var dates = dateList
+    lateinit var feeds: ArrayList<Feed>
+    lateinit var eat:ArrayList<EatenFood>
+    lateinit var foods:ArrayList<Food>
     var eatdates: ArrayList<String> = arrayListOf()
     var calories: ArrayList<String> = arrayListOf()
 
@@ -62,14 +65,24 @@ class CalendarGridViewAdapter(private var context: Context, dateList: ArrayList<
         dates = dateList
         notifyDataSetChanged()
     }
-    fun getInfo(date: String, calorie: String) {
-        var a: String = ""
-        var b: String = ""
-        a += date
-        b += calorie
-        eatdates.add(a)
-        calories.add(b)
-        Log.d("RNT??", eatdates.toString() + "   " +calories.toString())
+
+    fun uploadFeeds (feed:ArrayList<Feed>){
+        feeds = feed
+    }
+
+    fun uploadEat (eat:ArrayList<EatenFood>){
+
+    }
+
+        fun getInfo(date: String, calorie: String) {
+            var a: String = ""
+            var b: String = ""
+            a += date
+            b += calorie
+            eatdates.add(a)
+            calories.add(b)
+            Log.d("RNT??", eatdates.toString() + "   " + calories.toString())
+
 
     }
 }

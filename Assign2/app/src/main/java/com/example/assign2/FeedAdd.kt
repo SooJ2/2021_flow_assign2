@@ -1,13 +1,17 @@
 package com.example.assign2
 
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Gallery
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
@@ -20,6 +24,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -39,7 +44,11 @@ class FeedAdd : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = FragmentFeedAddBinding.inflate(layoutInflater)
+        binding.FeedAddImageView.setOnClickListener {
+            loadImage()
+        }
         binding.FeedAddBarcodeButton.setOnClickListener {
             val integrator = IntentIntegrator(activity)
             integrator.setBeepEnabled(false) // 소리 유무
@@ -180,10 +189,30 @@ class FeedAdd : Fragment() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
+    private fun loadImage(){
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
 
+        startActivityForResult(Intent.createChooser(intent,"Load Picture"), 1)
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == 1){
+            if(resultCode == RESULT_OK){
+                var dataUri = data?.data
+                try{
+                    var bitmap: Bitmap = MediaStore.Images.Media.getBitmap(this.activity?.contentResolver,dataUri)
+                    binding.FeedAddImageView.setImageBitmap(bitmap)
+                }catch(e:Exception){
+                    Toast.makeText(this.context,"$e",Toast.LENGTH_SHORT).show()
+                }
+            } else{
+
+            }
+        }
     }
 
 }
