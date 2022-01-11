@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FeedAdd">
 
     <LinearLayout
@@ -22,7 +23,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_background"/>
+                android:src="@drawable/icon_green"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -38,16 +39,15 @@
                         android:layout_height="50dp"
                         android:layout_weight="1"
                         android:text="barcode"
-                        android:backgroundTint="#4A777F"/>
+                        android:backgroundTint="#8CAAA6"/>
 
                     <Button
                         android:id="@+id/FeedAddSearchButton"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_marginLeft="5dp"
                         android:layout_weight="1"
                         android:text="search"
-                        android:backgroundTint="#4A777F"/>
+                        android:backgroundTint="#8CAAA6"/>
                 </LinearLayout>
 
 
@@ -86,6 +86,7 @@
                 android:hint="kcal"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/FeedAddFoodPlusButton"
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/icon_pluse"
@@ -99,15 +100,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            tools:listitem="@layout/feed_add_food_item"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            tools:listitem="@layout/feed_add_food_item" />
 
         <EditText
             android:id="@+id/FeedAddMemoEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
+            android:padding="10dp"
             android:hint="내용을 입력해주세요"
+            android:backgroundTint="#00000000"
             android:layout_weight="1"/>
 
         <Button
@@ -116,8 +119,8 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:text="finish"
-            android:backgroundTint="#4A777F"/>
+            android:backgroundTint="#8CAAA6"/>
 
     </LinearLayout>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,15 +23,22 @@ class FeedAddFoodSearch : Fragment() {
 
     lateinit var binding:FragmentFeedAddFoodSearchBinding
     var adapter: FeedAddFoodSearchAdapter? = null
-    val foodList = ArrayList<Food>()
+    var foodList = ArrayList<Food>()
+    var addFoodList = ArrayList<Food>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = FragmentFeedAddFoodSearchBinding.inflate(layoutInflater)
-        adapter =  FeedAddFoodSearchAdapter(requireContext(),"임의로 넣음", foodList)
+        adapter =  FeedAddFoodSearchAdapter(requireContext(), foodList)
         binding.FeedAddFoodSearchRecyclerView.adapter = adapter
         binding.FeedAddFoodSearchRecyclerView.layoutManager = LinearLayoutManager(activity)
+
+        if (arguments != null){
+            val name = arguments?.getString("name").toString()
+            binding.FeedAddFoodSearchEditText.setText(name)
+        }
+
         binding.FeedAddFoodSearchButton.setOnClickListener{
             /*retrofit start*/
             println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
@@ -53,7 +60,6 @@ class FeedAddFoodSearch : Fragment() {
                     response.body()?.let{
 
                         if(it.count() != 0){
-
                             for(i in 0 until it.count()){
                                 foodList.add(it[i])
                             }
@@ -61,6 +67,7 @@ class FeedAddFoodSearch : Fragment() {
 //                            binding.FeedAddFoodSearchRecyclerView.adapter = FeedAddFoodSearchAdapter(requireContext(),"임의로 넣음", foodList)
                             adapter?.setData(foodList)
                             adapter?.notifyDataSetChanged()
+                            foodList = ArrayList<Food>()
 
                         }
                         else{

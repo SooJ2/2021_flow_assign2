@@ -10,9 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.assign2.databinding.FragmentFeedAddBinding
 import com.google.zxing.integration.android.IntentIntegrator
+import kotlinx.android.synthetic.main.fragment_feed_add_food_search.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,8 +29,13 @@ class FeedAdd : Fragment() {
     lateinit var binding: FragmentFeedAddBinding
 //    var barcodes: ArrayList<String> = ArrayList<String>()
     var barcodes:String = ""
-    var foodList: ArrayList<Any> = ArrayList<Any>() // 임시로
+    var foodList: ArrayList<Food> = ArrayList<Food>() // 임시로
     var userId:String = "userid" // 임시로 해둠
+    lateinit var addAdapter: FeedAddFoodAdapter
+    var tempId = -1
+    var check = false
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,15 +47,50 @@ class FeedAdd : Fragment() {
             integrator.setPrompt("바코드를 인증해주세요") // 원하는 문구 넣어주기
             integrator.initiateScan()
         }
-        binding.FeedAddFoodRecyclerView.adapter = FeedAddFoodAdapter(requireContext(),userId,foodList)
+        binding.FeedAddFoodRecyclerView.adapter = FeedAddFoodAdapter(requireContext(),foodList)
         binding.FeedAddFoodRecyclerView.layoutManager = LinearLayoutManager(activity)
+
+        /*여기랑*/
+        if ( check){
+        check = false
+        var bundle = Bundle()
+        bundle.putString("name",binding.FeedAddFoodNameTextView.text.toString())
+        binding.FeedAddFoodNameTextView.text = null
+        val manager = (context as AppCompatActivity).supportFragmentManager.beginTransaction()
+        val next = FeedAddFoodSearch()
+        next.arguments = bundle
+        manager.replace(R.id.frameLayout,next)
+        manager.addToBackStack("search")
+        manager.commit() }
+        /*111111*/
+        /*여기랑*/
 
         binding.FeedAddSearchButton.setOnClickListener {
             val transaction = (context as AppCompatActivity).supportFragmentManager.beginTransaction()
             transaction.replace(R.id.frameLayout,FeedAddFoodSearch())
-            transaction.addToBackStack("add")
-            transaction.commit() }
+            transaction.addToBackStack("search")
+            transaction.commit()
+        }
+        /*22222*/
 
+        binding.FeedAddFoodPlusButton.setOnClickListener {
+            if (binding.FeedAddFoodNameTextView.text != null && binding.FeedAddFoodCalTextView.text != null && tempId != -1) {
+                foodList.add(Food(tempId,binding.FeedAddFoodNameTextView.text.toString(),binding.FeedAddFoodCalTextView.text.toString()))
+                println("^^^^^^^^^^^^^$foodList")
+                binding.FeedAddFoodNameTextView.setText("")
+                binding.FeedAddFoodCalTextView.setText("")
+
+                tempId = -1
+                addAdapter.setData(foodList)
+                addAdapter.notifyDataSetChanged()
+
+            }
+
+        }
+        addAdapter = FeedAddFoodAdapter(requireContext(),foodList)
+
+        binding.FeedAddFoodRecyclerView.adapter = addAdapter
+        binding.FeedAddFoodRecyclerView.layoutManager = LinearLayoutManager(activity)
 
     }
 
@@ -56,6 +98,7 @@ class FeedAdd : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return binding.root
     }
 
@@ -81,7 +124,37 @@ class FeedAdd : Fragment() {
                         if(it.c005.totalCount != "0"){
                             val tmpName = it.c005.row[0].PRDLST_NM
                             binding.FeedAddFoodNameTextView.setText(it.c005.row[0].PRDLST_NM)
+                            check = true
+
                             /*칼로리 매칭해서 찾아오기!!!!*/
+//                            var bundle = Bundle()
+//                            bundle.putString("name",it.c005.row[0].PRDLST_NM)
+//
+//                            val manager = (context as AppCompatActivity).supportFragmentManager
+//                            val next = FeedAddFoodSearch()
+//                            next.arguments = bundle
+//
+//                            val tmp = manager.beginTransaction()
+//                            tmp.addToBackStack("search")
+//                            tmp.replace(R.id.frameLayout,next)
+//                            tmp.commit()
+
+//                            if ( check){
+                            barcodes = ""
+                                check = true
+                                var bundle = Bundle()
+                                bundle.putString("name",binding.FeedAddFoodNameTextView.text.toString())
+                                binding.FeedAddFoodNameTextView.text = null
+                                val manager = (context as AppCompatActivity).supportFragmentManager.beginTransaction()
+                                val next = FeedAddFoodSearch()
+                                next.arguments = bundle
+                                manager.replace(R.id.frameLayout,next)
+                                manager.addToBackStack("search")
+                                manager.commit()
+//
+//                            }
+
+                            /*매칭하기 끝*/
                         }
                         else{
                             Toast.makeText(context,"해당 바코드 정보를 불러올 수 없습니다.", Toast.LENGTH_SHORT).show()
@@ -96,6 +169,20 @@ class FeedAdd : Fragment() {
                 }
             })
         }
+
+        if (arguments != null){
+            val name = arguments?.getString("name").toString()
+            val cal = arguments?.getString("cal").toString()
+            tempId = arguments?.getInt("id") as Int
+            binding.FeedAddFoodNameTextView.setText(name)
+            binding.FeedAddFoodCalTextView.setText(cal)
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
 
     }
 
