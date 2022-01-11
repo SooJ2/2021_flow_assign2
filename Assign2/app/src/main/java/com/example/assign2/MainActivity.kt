@@ -32,14 +32,14 @@ class MainActivity : AppCompatActivity() {
     var calories: ArrayList<String> = ArrayList<String>()
     var retrofitInterface = RetrofitInterface.getInstance()
 
-    var feeds : ArrayList<Feed> = ArrayList<Feed>()
+    var feeds : ArrayList<ArrayList<Feed>> = ArrayList<ArrayList<Feed>>()
     var eatenFoodList = MutableLiveData<List<EatenFood>>()
     var calorieList = ArrayList<Int>()
     var foodList = ArrayList<Food>()
 
 
     fun getCaloriesFromFeed(feed: Feed)  {
-        val eatuser = retrofitInterface.requestEatsByFeedId(feed.id)
+        val eatuser = retrofitInterface.requestEatsByFeedId(1)
         eatuser.enqueue(object : Callback<List<EatenFood>> {
             override fun onResponse(
                 call: Call<List<EatenFood>>,
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                 eatenFoodList.postValue(response.body())
             }
             override fun onFailure(call: Call<List<EatenFood>>, t: Throwable) {
-                Log.d("skdh", t.toString())
+                Log.e("skdh", t.toString())
             }
         })
         eatenFoodList.observe((this), androidx.lifecycle.Observer { myEatenFoodList->
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 //                        Log.d("n1!!", n.toString())
                     }
                     override fun onFailure(call: Call<Food>, t: Throwable) {
-//                        Log.e("ERROR", t.message.toString())
+                        Log.e("ERROR", t.message.toString())
                     }
 
                 })
@@ -134,23 +134,23 @@ class MainActivity : AppCompatActivity() {
 
         })
 
-        val callFeeds = retrofitInterface.requestFeedsByUserId(1) //user.id로 바꿔야함!!!!
-        callFeeds.enqueue(object : Callback<List<Feed>> {
-            override fun onResponse(call: Call<List<Feed>>, response: Response<List<Feed>>) {
-                if (response.isSuccessful.not()){
-                    Log.e("S", "NOT SUCCESS")
-                    return
-                }
-                response.body()?.let{
-                    if(it.count()!=0){
-                        for(i in 0 until it.count()){
-                            feeds.add(it[i])
-                        }
-                    }
-                    else {
-                        Log.e("D", "DO NOT ACCESS")
-                    }
-                }
+//        val callFeeds = retrofitInterface.requestFeedsByUserId(1) //user.id로 바꿔야함!!!!
+//        callFeeds.enqueue(object : Callback<List<Feed>> {
+//            override fun onResponse(call: Call<List<Feed>>, response: Response<List<Feed>>) {
+////                if (response.isSuccessful.not()){
+////                    Log.e("S", "NOT SUCCESS")
+////                    return
+////                }
+////                response.body()?.let{
+////                    if(it.count()!=0){
+////                        for(i in 0 until it.count()){
+////                            feeds.add(it[i])
+////                        }
+////                    }
+////                    else {
+////                        Log.e("D", "DO NOT ACCESS")
+////                    }
+////                }
 //                var m=0
 //                if (response.body() != null) {
 //                    for(i in 0 until (response.body()!!.size)) {
@@ -167,17 +167,37 @@ class MainActivity : AppCompatActivity() {
 //                            }
 //                        }
 //                    }
-//                    Log.d("feedsinenqueue", feeds.toString())
 //                }
-                Log.d("feedsin##", feeds.toString())
-            }
-
-            override fun onFailure(call: Call<List<Feed>>, t: Throwable) {
-                Log.d("error1111", "error")
-            }
-        })
-
-
+//                Log.d("feedsin##", feeds.toString())
+//                for (i in 0 until feeds.size) {
+//                    var n=0
+//                    for (j in 0 until feeds[i].size) {
+//                        val eatenfoodcall = retrofitInterface.requestEatsByFeedId(feeds[i][j].id)
+//                        eatenfoodcall.enqueue(object : Callback<List<EatenFood>> {
+//                            override fun onResponse(
+//                                call: Call<List<EatenFood>>,
+//                                response: Response<List<EatenFood>>
+//                            ) {
+//                                var ns: ArrayList<Int> = ArrayList<Int>()
+//                                var date: String = ""
+//                                for (k in 0 until response.body()!!.size) {
+//                                    n += response.body()!![k].eaten_calorie.toInt()
+//                                }
+//                                //여기서 지속적으로 ns 이용해야
+//                                ns.add(n)
+//                                Log.d("ns#??", ns.toString() + feeds[i][j].eat_date)
+//                            }
+//                            override fun onFailure(call: Call<List<EatenFood>>, t: Throwable) {
+//                                Log.e("a", "b")
+//                            }
+//                        })
+//                    }
+//                }
+//            }
+//            override fun onFailure(call: Call<List<Feed>>, t: Throwable) {
+//                Log.e("error1111", "error")
+//            }
+//        })
         Log.d("feeds##", feeds.toString())
 //        for (i in 0 until (feeds.size)) {
 //            for (j in 0 until (feeds[i].size)) {

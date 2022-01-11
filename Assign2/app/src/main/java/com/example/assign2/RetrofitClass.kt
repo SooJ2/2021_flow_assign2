@@ -141,7 +141,9 @@ data class EatenFood(
     @SerializedName("eater")
     val eater: Int,
     @SerializedName("eaten_food")
-    val eaten_food: Int
+    val eaten_food: Int,
+    @SerializedName("eaten_calorie")
+    val eaten_calorie: String
 )
 {
     override fun toString(): String {
